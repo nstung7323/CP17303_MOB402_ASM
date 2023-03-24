@@ -1,0 +1,189 @@
+<ul class="list-group" id="container">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>STT</span>
+        <span>Name</span>
+        <span>Price</span>
+        <span>Update</span>
+        <span>Delete</span>
+    </li>
+    {{!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>1</span>
+        <span>nstung7323</span>
+        <span>nstung7323@gmail.com</span>
+        <button class="badge badge-primary badge-pill">Update</button>
+        <button class="badge badge-primary badge-pill">Delete</button>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>2</span>
+        <span>nstung7323</span>
+        <span>nstung7323@gmail.com</span>
+        <button class="badge badge-primary badge-pill">Update</button>
+        <button class="badge badge-primary badge-pill">Delete</button>
+    </li>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>3</span>
+        <span>nstung7323</span>
+        <span>nstung7323@gmail.com</span>
+        <button class="badge badge-primary badge-pill">Update</button>
+        <button class="badge badge-primary badge-pill">Delete</button>
+    </li> --}}
+</ul>
+
+<div class="input-group mb-3" style="margin-top: 50px;">
+    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+    <input name="name" id="name" type="text" class="form-control" placeholder="Name" required>
+</div>
+
+<div class="input-group mb-3">
+    <span class="input-group-text"><i class="bi bi-shield-lock-fill"></i></span>
+    <input name="price" id="price" type="number" class="form-control" placeholder="Price" required>
+</div>
+
+{{!-- <div class="d-grid">
+    <button id="btnSave" class="btn btn-success">Add</button>
+</div> --}}
+
+<script>
+    {{!-- const btnAdd = document.querySelector('#btnSave'); --}}
+    let name = document.querySelector("[name='name']");
+    let price = document.querySelector("[name='price']");
+    let result = document.querySelector("#container");
+    let ar = `{{getData}}`;
+    let product = ar.split(',');
+    let products = [];
+
+    for (let i = 0; i < product.length; i += 3) {
+        products.push({
+            id: product[i],
+            name: product[i + 1],
+            price: product[i + 2],
+        })
+    }
+    let content = '';
+
+    for (let item of users) {
+        content += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>${item.id}</span>
+                <span>${item.name}</span>
+                <span>${item.price}</span>
+                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
+                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
+            </li>
+        `
+    }
+
+    result.innerHTML = content;
+    content = '';
+
+    /*
+
+    btnAdd.onclick = () => {
+        if (name.value.length == 0) {
+            alert('Vui long nhap ten');
+            return;
+        }
+        if (email.value.length == 0) {
+            alert('Vui long nhap email');
+            return;
+        }
+        if (!email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+            alert('Vui long nhap dung dinh dang email');
+            return;
+        }
+
+        let newData = {
+            id: parseInt(users[users.length - 1].id) + 1,
+            name: name.value,
+            email: email.value
+        }
+
+        users.push(newData);
+
+        for (let item of users) {
+            content += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>${item.id}</span>
+                <span>${item.name}</span>
+                <span>${item.email}</span>
+                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
+                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
+            </li>
+        `
+        }
+
+        result.innerHTML = content;
+        content = '';
+
+        name.value = '';
+        email.value = '';
+
+    }
+
+    for (let i = 0; i < deletes.length; i++) {
+        deletes[i].onclick = () => {
+            users.splice(i, 1);
+
+            for (let item of users) {
+                content += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>${item.id}</span>
+                <span>${item.name}</span>
+                <span>${item.email}</span>
+                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
+                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
+            </li>
+        `
+            }
+
+            result.innerHTML = content;
+            content = '';
+        }
+    }
+
+    for (let i = 0; i < updates.length; i++) {
+        updates[i].onclick = () => {
+
+            if (name.value.length == 0) {
+                alert('Vui long nhap ten');
+                return;
+            }
+            if (email.value.length == 0) {
+                alert('Vui long nhap email');
+                return;
+            }
+            if (!email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+                alert('Vui long nhap dung dinh dang email');
+                return;
+            }
+
+            let newData = {
+                id: i + 1,
+                name: name.value,
+                email: email.value
+            }
+
+            users.splice(i, 1, newData);
+
+            for (let item of users) {
+                content += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>${item.id}</span>
+                <span>${item.name}</span>
+                <span>${item.email}</span>
+                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
+                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
+            </li>
+        `
+            }
+
+            result.innerHTML = content;
+            content = '';
+
+            name.value = '';
+            email.value = '';
+        }
+    }
+
+/*
+</script>
