@@ -4,7 +4,7 @@
             <h2 class="text-center pt-3">SignUp Now</h2>
             <p class="text-center text-muted lead mb-3">It's Free and Takes a Minute</p>
             {{!-- Form start --}}
-            <form method="post" action="http://localhost:3000/login" class="form-signin needs-validation"
+            <form method="post" action="http://localhost:3000/signup" class="form-signin needs-validation"
                 oninput="confirmPassword.setCustomValidity(password.value !== confirmPassword.value ? 'Password do not match' : '')"
                 novalidate>
                 <div class="input-group mb-3">
@@ -39,7 +39,13 @@
                     <div class="valid-feedback">That look great!</div>
                     <div class="invalid-feedback">Please confirm your password</div>
                 </div>
-                <div class="d-grid">
+
+                {{! Notify }}
+                <div class="d-flex justify-content-center align-items-center">
+                    <code>{{notify}}</code>
+                </div>
+
+                <div class="d-grid pt-3">
                     <button type="submit" class="btn btn-success">SignUp Now</button>
                     <p class="text-center text-muted mt-2">Already Have an account? <a
                             href="http://localhost:3000/login"> Login Here </a></p>

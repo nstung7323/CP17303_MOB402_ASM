@@ -1,189 +1,181 @@
-<ul class="list-group" id="container">
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>STT</span>
-        <span>Name</span>
-        <span>Price</span>
-        <span>Update</span>
-        <span>Delete</span>
-    </li>
-    {{!-- <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>1</span>
-        <span>nstung7323</span>
-        <span>nstung7323@gmail.com</span>
-        <button class="badge badge-primary badge-pill">Update</button>
-        <button class="badge badge-primary badge-pill">Delete</button>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>2</span>
-        <span>nstung7323</span>
-        <span>nstung7323@gmail.com</span>
-        <button class="badge badge-primary badge-pill">Update</button>
-        <button class="badge badge-primary badge-pill">Delete</button>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>3</span>
-        <span>nstung7323</span>
-        <span>nstung7323@gmail.com</span>
-        <button class="badge badge-primary badge-pill">Update</button>
-        <button class="badge badge-primary badge-pill">Delete</button>
-    </li> --}}
-</ul>
+<table class="table" id="product-table">
+    <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Color</th>
+            {{#if check}}
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+            {{/if}}
+            <th scope="col">Details</th>
+        </tr>
+    </thead>
 
-<div class="input-group mb-3" style="margin-top: 50px;">
-    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-    <input name="name" id="name" type="text" class="form-control" placeholder="Name" required>
+    <tbody>
+        {{#each products}}
+        <tr>
+            <td class="align-middle">{{inc @index}}</td>
+            <td class="align-middle">{{this.name}}</td>
+            <td class="align-middle">{{this.price}}</td>
+            <td class="align-middle">{{this.color}}</td>
+            <td class="align-middle">
+                <svg href="#" data-bs-toggle="modal" data-bs-target="#editProductModal"
+                    xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
+                    class="bi bi-pencil-square ml-3 btnUpdateProduct" viewBox="0 0 16 16">
+                    <path
+                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                </svg>
+            </td>
+            <td class="align-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
+                    class="bi bi-trash3 ml-3 btnDeleteProduct" viewBox="0 0 16 16">
+                    <path
+                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                </svg>
+            </td>
+            <td class="align-middle">
+                <button type="button" class="btn btn-info" href="#" class="accordion-toggle" data-bs-toggle="collapse"
+                    data-bs-target="#{{this.id}}" role="button" aria-expanded="false" aria-controls="{{this.id}}">Info
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="7" class="hiddenRow">
+                <div class="collapse" id="{{this.id}}" data-bs-parent="#{{this.id}}">
+                    <div class="card card-body">
+                        <div class="d-flex justify-content-between">
+                            <span><strong>ID Product:</strong> {{this.id}}</span>
+                            <span><strong>ID User:</strong> {{this.idUser}}</span>
+                            <span><strong>Name User:</strong> {{this.nameUser}}</span>
+                            <span><strong>Category:</strong> {{this.category}}</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+
+</table>
+
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{!-- Form start --}}
+                <form method="post" action="http://localhost:3000/home/update_product_list"
+                    class="form-signin needs-validation" novalidate>
+                    <input name="_id" type="text" required style="display: none;">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                        <input name="name" type="text" class="form-control" placeholder="Name Product" required>
+                        <div class="valid-feedback">That look great!</div>
+                        <div class="invalid-feedback">Please enter your Name Product</div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                <path
+                                    d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z" />
+                            </svg>
+                            </i></span>
+                        <input name="price" type="number" step=".1" class="form-control" placeholder="Price Product"
+                            required>
+                        <div class="valid-feedback">That look great!</div>
+                        <div id="err_price" class="invalid-feedback">Please enter your Price Product</div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-palette"></i></span>
+                        <input name="color" type="text" class="form-control" placeholder="Color Product" required>
+                        <div class="valid-feedback">That look great!</div>
+                        <div class="invalid-feedback">Please enter your Color Product</div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-bookmarks"></i></span>
+                        <input name="category" type="text" class="form-control" placeholder="Category Product" required>
+                        <div class="valid-feedback">That look great!</div>
+                        <div class="invalid-feedback">Please confirm your Category Product</div>
+                    </div>
+
+                    <div class="d-grid pt-3">
+                        <button type="submit" class="btn btn-success">Update Product</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="input-group mb-3">
-    <span class="input-group-text"><i class="bi bi-shield-lock-fill"></i></span>
-    <input name="price" id="price" type="number" class="form-control" placeholder="Price" required>
-</div>
-
-{{!-- <div class="d-grid">
-    <button id="btnSave" class="btn btn-success">Add</button>
-</div> --}}
 
 <script>
-    {{!-- const btnAdd = document.querySelector('#btnSave'); --}}
-    let name = document.querySelector("[name='name']");
-    let price = document.querySelector("[name='price']");
-    let result = document.querySelector("#container");
-    let ar = `{{getData}}`;
-    let product = ar.split(',');
-    let products = [];
-
-    for (let i = 0; i < product.length; i += 3) {
-        products.push({
-            id: product[i],
-            name: product[i + 1],
-            price: product[i + 2],
-        })
-    }
+    const list = `{{getAllData}}`.split('#');
+    let listDetail = [];
     let content = '';
+    let user = {{ check }};
+    let updateProduct = document.querySelectorAll('.btnUpdateProduct');
+    let deleteProduct = document.querySelectorAll('.btnDeleteProduct');
 
-    for (let item of users) {
-        content += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>${item.id}</span>
-                <span>${item.name}</span>
-                <span>${item.price}</span>
-                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
-                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
-            </li>
-        `
+    for (let i = 0; i < list.length - 1; i++) {
+        let listTmp = list[i].split('^');
+        let data = {
+            _id: listTmp[0],
+            id: listTmp[1],
+            name: listTmp[2],
+            price: listTmp[3],
+            color: listTmp[4],
+            category: listTmp[5]
+        }
+        listDetail.push(data);
+        console.log(listDetail);
     }
 
-    result.innerHTML = content;
-    content = '';
+    for (let i = 0; i < updateProduct.length; i++) {
+        if (user) {
+            updateProduct[i].onclick = () => {
+                document.querySelector('[name="_id"]').value = listDetail[i]._id;
+                document.querySelector('[name="name"]').value = listDetail[i].name;
+                document.querySelector('[name="price"]').value = listDetail[i].price;
+                document.querySelector('[name="color"]').value = listDetail[i].color;
+                document.querySelector('[name="category"]').value = listDetail[i].category;
+            }
 
-    /*
+            deleteProduct[i].onclick = () => {
+                let result = confirm(`Do you want to delete a product named: ${listDetail[i].name}`);
+                if (result) {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/home/delete_product_list');
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            const response = JSON.parse(xhr.responseText);
+                            if (response.success) {
+                                window.location.href = response.redirectUrl;
+                            } else {
+                                // Xử lý lỗi nếu cần
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify({ _id: listDetail[i]._id }));
+                }
+            }
 
-    btnAdd.onclick = () => {
-        if (name.value.length == 0) {
-            alert('Vui long nhap ten');
-            return;
         }
-        if (email.value.length == 0) {
-            alert('Vui long nhap email');
-            return;
+        else {
+            updateProduct[i].style.display = 'none';
+            deleteProduct[i].style.display = 'none';
         }
-        if (!email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-            alert('Vui long nhap dung dinh dang email');
-            return;
-        }
-
-        let newData = {
-            id: parseInt(users[users.length - 1].id) + 1,
-            name: name.value,
-            email: email.value
-        }
-
-        users.push(newData);
-
-        for (let item of users) {
-            content += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>${item.id}</span>
-                <span>${item.name}</span>
-                <span>${item.email}</span>
-                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
-                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
-            </li>
-        `
-        }
-
-        result.innerHTML = content;
-        content = '';
-
-        name.value = '';
-        email.value = '';
 
     }
-
-    for (let i = 0; i < deletes.length; i++) {
-        deletes[i].onclick = () => {
-            users.splice(i, 1);
-
-            for (let item of users) {
-                content += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>${item.id}</span>
-                <span>${item.name}</span>
-                <span>${item.email}</span>
-                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
-                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
-            </li>
-        `
-            }
-
-            result.innerHTML = content;
-            content = '';
-        }
-    }
-
-    for (let i = 0; i < updates.length; i++) {
-        updates[i].onclick = () => {
-
-            if (name.value.length == 0) {
-                alert('Vui long nhap ten');
-                return;
-            }
-            if (email.value.length == 0) {
-                alert('Vui long nhap email');
-                return;
-            }
-            if (!email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-                alert('Vui long nhap dung dinh dang email');
-                return;
-            }
-
-            let newData = {
-                id: i + 1,
-                name: name.value,
-                email: email.value
-            }
-
-            users.splice(i, 1, newData);
-
-            for (let item of users) {
-                content += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>${item.id}</span>
-                <span>${item.name}</span>
-                <span>${item.email}</span>
-                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
-                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
-            </li>
-        `
-            }
-
-            result.innerHTML = content;
-            content = '';
-
-            name.value = '';
-            email.value = '';
-        }
-    }
-
-/*
 </script>

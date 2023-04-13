@@ -8,17 +8,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="/css/app.css">
-
-    {{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
 
@@ -37,16 +29,153 @@
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost:3000/home/product_list">Product</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#addProductModal"
+                            data-bs-whatever="@mdo">Add Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:3000/home/profile">Profile</a>
+                    </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="text" placeholder="Search">
-                    <button class="btn btn-primary" type="button">Search</button>
+                <form class="d-flex" method="post" action="http://localhost:3000/home/search">
+                    <input name="value" class="form-control me-2" type="text" placeholder="Search">
+                    <button class="btn btn-primary" type="submit">Search</button>
                 </form>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" id="logout" href="#">Logout</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
     {{{body}}}
+
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{!-- Form start --}}
+                    <form method="post" action="http://localhost:3000/home/product_list"
+                        class="form-signin needs-validation" novalidate>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-hash"></i></span>
+                            <input name="id" type="text" class="form-control" placeholder="ID Product" required>
+                            <div class="valid-feedback">That look great!</div>
+                            <div class="invalid-feedback">Please enter your ID Product</div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                            <input name="name" type="text" class="form-control" placeholder="Name Product" required>
+                            <div class="valid-feedback">That look great!</div>
+                            <div class="invalid-feedback">Please enter your Name Product</div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                    <path
+                                        d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z" />
+                                </svg>
+                                </i></span>
+                            <input name="price" type="number" step=".1" class="form-control" placeholder="Price Product"
+                                required>
+                            <div class="valid-feedback">That look great!</div>
+                            <div id="err_price" class="invalid-feedback">Please enter your Price Product</div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-palette"></i></span>
+                            <input name="color" type="text" class="form-control" placeholder="Color Product" required>
+                            <div class="valid-feedback">That look great!</div>
+                            <div class="invalid-feedback">Please enter your Color Product</div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-bookmarks"></i></span>
+                            <input name="category" type="text" class="form-control" placeholder="Category Product"
+                                required>
+                            <div class="valid-feedback">That look great!</div>
+                            <div class="invalid-feedback">Please confirm your Category Product</div>
+                        </div>
+
+                        <div class="d-grid pt-3">
+                            <button type="submit" class="btn btn-success">Add Product</button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
 </html>
+
+<script>
+    const logout = document.querySelector('#logout');
+    logout.onclick = () => {
+        const result = confirm('Are you want to log out');
+
+        if (result) {}
+    }
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    const numberInput = form.querySelector('input[type="number"]');
+                    if (numberInput) {
+                        numberInput.addEventListener('input', function () {
+                            if (numberInput.value.length == 0) {
+                                document.querySelector('#err_price').innerHTML = 'Please enter your Price Product'
+                            }
+                            else if (numberInput.value < 0) {
+                                document.querySelector('#err_price').innerHTML = 'Please enter a positive number'
+                                numberInput.setCustomValidity('Please enter a positive number');
+                                event.preventDefault();
+                                event.stopPropagation();
+                            } else {
+                                numberInput.setCustomValidity('');
+                            }
+                        });
+                    }
+                    if (numberInput.value < 0) {
+                        document.querySelector('#err_price').innerHTML = 'Please enter a positive number'
+                        numberInput.setCustomValidity('Please enter a positive number');
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false)
+            });
+    })();
+</script>

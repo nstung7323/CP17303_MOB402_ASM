@@ -3,7 +3,7 @@
         <div class="col-lg-4 bg-white m-auto rounded-top wrapper">
             <h2 class="text-center pt-3">Login Now</h2>
             {{!-- Form start --}}
-            <form method="post" action="http://localhost:3000/home" class="py-3 needs-validation" novalidate>
+            <form method="post" action="http://localhost:3000/login" class="py-3 needs-validation" novalidate>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
                     <input name="email" id="email" type="email" class="form-control" placeholder="Email" required>
@@ -18,7 +18,12 @@
                     <div class="invalid-feedback">Please enter your password</div>
                 </div>
 
-                <div class="d-grid">
+                {{! Notify }}
+                <div class="d-flex justify-content-center align-items-center">
+                    <code>{{notify}}</code>
+                </div>
+
+                <div class="d-grid pt-3">
                     <button id="btnLogin" type="submit" class="btn btn-success">SignUp Now</button>
                     <p class="text-center text-muted mt-3">Register Now for Free by Clicing <a
                             href="http://localhost:3000/signup"> Register Now </a></p>
@@ -50,17 +55,4 @@
             });
     })();
 
-    let login = document.querySelector('#btnLogin');
-    let email = document.querySelector('#email');
-    let password = document.querySelector('#password');
-
-    login.onclick = (ev) => {
-        if (email.value === `{{getEmail}}` && password.value === `{{getPassword}}`) {
-            window.location.href = 'http://localhost:3000/home'
-        }
-        else {
-            alert('Du lieu khong hop le!')
-            ev.preventDefault();
-        }
-    };
 </script>

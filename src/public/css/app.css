@@ -4,3 +4,9 @@
 .wrapper a {
   text-decoration: none;
   color: green; }
+
+.btnUpdate {
+  background-color: green; }
+
+.btnDelete {
+  background-color: red; }

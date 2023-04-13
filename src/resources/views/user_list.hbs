@@ -1,190 +1,131 @@
-<ul class="list-group" id="container">
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>STT</span>
-        <span>Name</span>
-        <span>Email</span>
-        <span>Update</span>
-        <span>Delete</span>
-    </li>
-    {{!-- <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>1</span>
-        <span>nstung7323</span>
-        <span>nstung7323@gmail.com</span>
-        <button class="badge badge-primary badge-pill">Update</button>
-        <button class="badge badge-primary badge-pill">Delete</button>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>2</span>
-        <span>nstung7323</span>
-        <span>nstung7323@gmail.com</span>
-        <button class="badge badge-primary badge-pill">Update</button>
-        <button class="badge badge-primary badge-pill">Delete</button>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>3</span>
-        <span>nstung7323</span>
-        <span>nstung7323@gmail.com</span>
-        <button class="badge badge-primary badge-pill">Update</button>
-        <button class="badge badge-primary badge-pill">Delete</button>
-    </li> --}}
-</ul>
+{{#if check}}
+<table class="table" id="product-table">
+    <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
 
-<div class="input-group mb-3" style="margin-top: 50px;">
-    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-    <input name="name" id="name" type="text" class="form-control" placeholder="Name" required>
+    <tbody>
+        {{#each users}}
+        <tr>
+            <td class="align-middle">{{inc @index}}</td>
+            <td class="align-middle">{{this.firstName}}</td>
+            <td class="align-middle">{{this.lastName}}</td>
+            <td class="align-middle">{{this.email}}</td>
+            <td class="align-middle">
+                <svg href="#" data-bs-toggle="modal" data-bs-target="#editUserModal" xmlns="http://www.w3.org/2000/svg"
+                    width="28" height="28" fill="currentColor" class="bi bi-pencil-square ml-3 btnUpdateUser"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                </svg>
+            </td>
+            <td class="align-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
+                    class="bi bi-trash3 ml-3 btnDeleteUser" viewBox="0 0 16 16">
+                    <path
+                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                </svg>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+
+</table>
+
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{!-- Form start --}}
+                <form method="post" action="http://localhost:3000/home/update_user_list"
+                    class="form-signin needs-validation" novalidate>
+                    <input name="_id" type="text" required style="display: none;">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                        <input name="firstName" type="text" class="form-control" placeholder="First Name" required>
+                        <div class="valid-feedback">That look great!</div>
+                        <div class="invalid-feedback">Please enter your First Name</div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                        <input name="lastName" type="text" class="form-control" placeholder="Last Name" required>
+                        <div class="valid-feedback">That look great!</div>
+                        <div class="invalid-feedback">Please enter your Last Name</div>
+                    </div>
+
+
+                    <div class="d-grid pt-3">
+                        <button type="submit" class="btn btn-success">Update User</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="input-group mb-3">
-    <span class="input-group-text"><i class="bi bi-shield-lock-fill"></i></span>
-    <input name="email" id="email" type="email" class="form-control" placeholder="Email" required>
-</div>
-
-<div class="d-grid">
-    <button id="btnSave" class="btn btn-success">Add</button>
-</div>
 
 <script>
-    const btnAdd = document.querySelector('#btnSave');
-    let name = document.querySelector("[name='name']");
-    let email = document.querySelector("[name='email']");
-    let result = document.querySelector("#container");
-    let ar = `{{getData}}`;
-    let user = ar.split(',');
-    let users = [];
-
-    let deletes, updates;
-
-    for (let i = 0; i < user.length; i += 3) {
-        users.push({
-            id: user[i],
-            name: user[i + 1],
-            email: user[i + 2],
-        })
-    }
+    const list = `{{getAllData}}`.split('#');
+    let updateUser = document.querySelectorAll('.btnUpdateUser');
+    let deleteUser = document.querySelectorAll('.btnDeleteUser');
+    let listDetail = [];
     let content = '';
 
-    for (let item of users) {
-        content += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>${item.id}</span>
-                <span>${item.name}</span>
-                <span>${item.email}</span>
-                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
-                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
-            </li>
-        `
+    for (let i = 0; i < list.length - 1; i++) {
+        let listTmp = list[i].split('^');
+        let data = {
+            _id: listTmp[0],
+            firstName: listTmp[1],
+            lastName: listTmp[2],
+            email: listTmp[3],
+        }
+        listDetail.push(data);
+        console.log(listDetail);
     }
 
-    result.innerHTML = content;
-    updates = document.querySelectorAll('.btnUpdate');
-    deletes = document.querySelectorAll('.btnDelete');
-    content = '';
-
-    btnAdd.onclick = () => {
-        if (name.value.length == 0) {
-            alert('Vui long nhap ten');
-            return;
-        }
-        if (email.value.length == 0) {
-            alert('Vui long nhap email');
-            return;
-        }
-        if (!email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-            alert('Vui long nhap dung dinh dang email');
-            return;
+    for (let i = 0; i < updateUser.length; i++) {
+        updateUser[i].onclick = () => {
+            document.querySelector('[name="_id"]').value = listDetail[i]._id;
+            document.querySelector('[name="firstName"]').value = listDetail[i].firstName;
+            document.querySelector('[name="lastName"]').value = listDetail[i].lastName;
         }
 
-        let newData = {
-            id: parseInt(users[users.length - 1].id) + 1,
-            name: name.value,
-            email: email.value
-        }
-
-        users.push(newData);
-
-        for (let item of users) {
-            content += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>${item.id}</span>
-                <span>${item.name}</span>
-                <span>${item.email}</span>
-                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
-                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
-            </li>
-        `
-        }
-
-        result.innerHTML = content;
-        content = '';
-
-        name.value = '';
-        email.value = '';
-
-    }
-
-    for (let i = 0; i < deletes.length; i++) {
-        deletes[i].onclick = () => {
-            users.splice(i, 1);
-
-            for (let item of users) {
-                content += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>${item.id}</span>
-                <span>${item.name}</span>
-                <span>${item.email}</span>
-                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
-                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
-            </li>
-        `
+        deleteUser[i].onclick = () => {
+            let result = confirm(`Do you want to delete a user named: ${listDetail[i].firstName} ${listDetail[i].lastName}`);
+            if (result) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/home/delete_user_list');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            // Xử lý lỗi nếu cần
+                        }
+                    }
+                };
+                xhr.send(JSON.stringify({ _id: listDetail[i]._id }));
             }
-
-            result.innerHTML = content;
-            content = '';
         }
     }
-
-    for (let i = 0; i < updates.length; i++) {
-        updates[i].onclick = () => {
-
-            if (name.value.length == 0) {
-                alert('Vui long nhap ten');
-                return;
-            }
-            if (email.value.length == 0) {
-                alert('Vui long nhap email');
-                return;
-            }
-            if (!email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-                alert('Vui long nhap dung dinh dang email');
-                return;
-            }
-
-            let newData = {
-                id: i + 1,
-                name: name.value,
-                email: email.value
-            }
-
-            users.splice(i, 1, newData);
-
-            for (let item of users) {
-                content += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>${item.id}</span>
-                <span>${item.name}</span>
-                <span>${item.email}</span>
-                <button class="badge badge-dark badge-pill btnUpdate">Update</button>
-                <button class="badge badge-dark badge-pill btnDelete">Delete</button>
-            </li>
-        `
-            }
-
-            result.innerHTML = content;
-            content = '';
-
-            name.value = '';
-            email.value = '';
-        }
-    }
-
 </script>
+{{/if}}
